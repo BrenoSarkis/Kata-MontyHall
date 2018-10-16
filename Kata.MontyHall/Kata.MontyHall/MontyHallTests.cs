@@ -6,7 +6,7 @@ namespace Kata.MontyHall
     public class MontyHallTests
     {
         [Test]
-        public void T()
+        public void GameHasThreeDoors()
         {
 
         }
