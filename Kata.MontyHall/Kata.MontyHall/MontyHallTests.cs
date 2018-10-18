@@ -21,9 +21,9 @@ namespace Kata.MontyHall
 
     public class MontyHall
     {
-        public bool Door1 { get; set; }
-        public bool Door2 { get; set; }
-        public bool Door3 { get; set; }
+        public bool Door1 { get; }
+        public bool Door2 { get; }
+        public bool Door3 { get; }
 
         public IEnumerable<bool> Doors()
         {
