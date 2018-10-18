@@ -10,20 +10,23 @@ namespace Kata.MontyHall
     [TestFixture]
     public class MontyHallTests
     {
+
         [Test]
-        public void DoorOneIsTheWinner()
+        public void AtStartGameHasThreeDoors()
         {
             var montyHall = new MontyHall();
-            var doors = montyHall.DefineDoors().ToArray();
-            Assert.That(doors[0], Is.EqualTo(true));
+            var doors = montyHall.StartNew();
+            Assert.That(doors.Count(), Is.EqualTo(3));
         }
     }
 
     public class MontyHall
     {
-        public IEnumerable<bool> DefineDoors()
+        public IEnumerable<bool> StartNew()
         {
-            yield return true;
+            yield return false;
+            yield return false;
+            yield return false;
         }
     }
 }
