@@ -15,26 +15,21 @@ namespace Kata.MontyHall
         public void AtStartGameHasThreeDoors()
         {
             var montyHall = new MontyHall();
-            var doors = montyHall.StartNew();
-            Assert.That(doors.Count(), Is.EqualTo(3));
-        }
-
-        [Test]
-        public void AtStartGameHasAWinner()
-        {
-            var montyHall = new MontyHall();
-            var doors = montyHall.StartNew();
-            Assert.True(doors.Any(door => door));
+            Assert.That(montyHall.Doors().Count(), Is.EqualTo(3));
         }
     }
 
     public class MontyHall
     {
-        public IEnumerable<bool> StartNew()
+        public bool Door1 { get; set; }
+        public bool Door2 { get; set; }
+        public bool Door3 { get; set; }
+
+        public IEnumerable<bool> Doors()
         {
-            yield return true;
-            yield return false;
-            yield return false;
+            yield return Door1;
+            yield return Door2;
+            yield return Door3;
         }
     }
 }
