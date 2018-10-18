@@ -12,7 +12,7 @@ namespace Kata.MontyHall
     {
 
         [Test]
-        public void AtStartGameHasThreeDoors()
+        public void GameHasThreeDoors()
         {
             var montyHall = new MontyHall();
             Assert.That(montyHall.Doors().Count(), Is.EqualTo(3));
