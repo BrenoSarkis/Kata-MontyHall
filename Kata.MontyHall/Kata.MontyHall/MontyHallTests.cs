@@ -18,13 +18,21 @@ namespace Kata.MontyHall
             var doors = montyHall.StartNew();
             Assert.That(doors.Count(), Is.EqualTo(3));
         }
+
+        [Test]
+        public void AtStartGameHasAWinner()
+        {
+            var montyHall = new MontyHall();
+            var doors = montyHall.StartNew();
+            Assert.True(doors.Any(door => door));
+        }
     }
 
     public class MontyHall
     {
         public IEnumerable<bool> StartNew()
         {
-            yield return false;
+            yield return true;
             yield return false;
             yield return false;
         }
