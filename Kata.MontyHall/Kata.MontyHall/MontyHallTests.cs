@@ -1,8 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics.SymbolStore;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.InteropServices;
 using NUnit.Framework;
 
 namespace Kata.MontyHall
@@ -17,6 +14,14 @@ namespace Kata.MontyHall
             var montyHall = new MontyHall();
             Assert.That(montyHall.Doors().Count(), Is.EqualTo(3));
         }
+
+        [Test]
+        public void AtGameStart_HasAWinner()
+        {
+            var montyHall = new MontyHall();
+            montyHall.DefineWinner();
+            
+        }
     }
 
     public class MontyHall
@@ -30,6 +35,11 @@ namespace Kata.MontyHall
             yield return Door1;
             yield return Door2;
             yield return Door3;
+        }
+
+        public void DefineWinner()
+        {
+           
         }
     }
 }
