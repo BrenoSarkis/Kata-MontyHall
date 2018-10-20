@@ -16,11 +16,11 @@ namespace Kata.MontyHall
         }
 
         [Test]
-        public void AtGameStart_HasAWinner()
+        public void OneOfTheDoorsHoldsThePrize()
         {
             var montyHall = new MontyHall();
             montyHall.DefineWinner();
-            Assert.IsTrue(montyHall.Doors().Any(door => door));
+            Assert.That(montyHall.Doors().Count(hasPrize => hasPrize), Is.EqualTo(1));
         }
     }
 
