@@ -20,15 +20,15 @@ namespace Kata.MontyHall
         {
             var montyHall = new MontyHall();
             montyHall.DefineWinner();
-            
+            Assert.IsTrue(montyHall.Doors().Any(door => door));
         }
     }
 
     public class MontyHall
     {
-        public bool Door1 { get; }
-        public bool Door2 { get; }
-        public bool Door3 { get; }
+        public bool Door1 { get; private set; }
+        public bool Door2 { get; private set; }
+        public bool Door3 { get; private set; }
 
         public IEnumerable<bool> Doors()
         {
@@ -39,7 +39,7 @@ namespace Kata.MontyHall
 
         public void DefineWinner()
         {
-           
+            Door1 = true;
         }
     }
 }
