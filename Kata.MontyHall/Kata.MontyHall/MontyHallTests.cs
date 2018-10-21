@@ -7,7 +7,6 @@ namespace Kata.MontyHall
     [TestFixture]
     public class MontyHallTests
     {
-
         [Test]
         public void GameHasThreeDoors()
         {
@@ -69,7 +68,6 @@ namespace Kata.MontyHall
 
         public MontyHall()
         {
-            
         }
 
         public MontyHall(ISelectPrizes prizeSelector)
