@@ -26,8 +26,7 @@ namespace Kata.MontyHall
         [Test]
         public void RevealsDoorWithNoPrize()
         {
-            var prizeSelector = new PrizeSelectorMock(doorNumberThatHoldsPrize: 1);
-            var montyHall = new MontyHall(prizeSelector);
+            var montyHall = new MontyHall();
 
             montyHall.DefineWinner();
             var door = montyHall.RevealDoorWithNoPrize();
@@ -37,7 +36,12 @@ namespace Kata.MontyHall
         }
     }
 
-    public class PrizeSelectorMock
+    public interface ISelectPrizes
+    {
+        int ChooseDoor();
+    }
+
+    public class PrizeSelectorMock : ISelectPrizes
     {
         private readonly int doorNumberThatHoldsPrize;
 
@@ -54,14 +58,14 @@ namespace Kata.MontyHall
 
     public class MontyHall
     {
-        private readonly PrizeSelectorMock prizeSelector;
+        private readonly ISelectPrizes prizeSelector;
 
         public MontyHall()
         {
             
         }
 
-        public MontyHall(PrizeSelectorMock prizeSelector)
+        public MontyHall(ISelectPrizes prizeSelector)
         {
             this.prizeSelector = prizeSelector;
         }
