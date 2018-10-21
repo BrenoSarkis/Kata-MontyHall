@@ -18,15 +18,22 @@ namespace Kata.MontyHall
         [Test]
         public void OneOfTheDoorsHoldsThePrize()
         {
-            var montyHall = new MontyHall();
+            var doorNumberThatHoldsPrize = 1;
+            var prizeSelector = new PrizeSelectorFake(doorNumberThatHoldsPrize: doorNumberThatHoldsPrize);
+            var montyHall = new MontyHall(prizeSelector);
+
             montyHall.DefineWinner();
-            Assert.That(montyHall.Doors().Count(door => door.ContainsPrize), Is.EqualTo(1));
+
+            Assert.That(montyHall.WinningDoor.ContainsPrize, Is.EqualTo(true));
+            Assert.That(montyHall.WinningDoor.Number, Is.EqualTo(doorNumberThatHoldsPrize));
         }
 
         [Test]
         public void RevealsDoorWithNoPrize()
         {
-            var montyHall = new MontyHall();
+            var doorNumberThatHoldsPrize = 1;
+            var prizeSelector = new PrizeSelectorFake(doorNumberThatHoldsPrize: doorNumberThatHoldsPrize);
+            var montyHall = new MontyHall(prizeSelector);
 
             montyHall.DefineWinner();
             var door = montyHall.RevealDoorWithNoPrize();
@@ -41,11 +48,11 @@ namespace Kata.MontyHall
         int ChooseDoor();
     }
 
-    public class PrizeSelectorMock : ISelectPrizes
+    public class PrizeSelectorFake : ISelectPrizes
     {
         private readonly int doorNumberThatHoldsPrize;
 
-        public PrizeSelectorMock(int doorNumberThatHoldsPrize)
+        public PrizeSelectorFake(int doorNumberThatHoldsPrize)
         {
             this.doorNumberThatHoldsPrize = doorNumberThatHoldsPrize;
         }
@@ -74,6 +81,8 @@ namespace Kata.MontyHall
         public Door Door2 { get; private set; } = new Door(2, false);
         public Door Door3 { get; private set; } = new Door(3, false);
 
+        public Door WinningDoor;
+
         public IEnumerable<Door> Doors()
         {
             yield return Door1;
@@ -83,7 +92,7 @@ namespace Kata.MontyHall
 
         public void DefineWinner()
         {
-            Door1 = new Door(1, true);
+            WinningDoor = new Door(prizeSelector.ChooseDoor(), true);
         }
 
         public Door RevealDoorWithNoPrize()
