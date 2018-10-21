@@ -20,17 +20,57 @@ namespace Kata.MontyHall
         {
             var montyHall = new MontyHall();
             montyHall.DefineWinner();
-            Assert.That(montyHall.Doors().Count(hasPrize => hasPrize), Is.EqualTo(1));
+            Assert.That(montyHall.Doors().Count(door => door.ContainsPrize), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void RevealsDoorWithNoPrize()
+        {
+            var prizeSelector = new PrizeSelectorMock(doorNumberThatHoldsPrize: 1);
+            var montyHall = new MontyHall(prizeSelector);
+
+            montyHall.DefineWinner();
+            var door = montyHall.RevealDoorWithNoPrize();
+
+            Assert.That(door.Number, Is.EqualTo(2));
+            Assert.That(door.ContainsPrize, Is.EqualTo(false));
+        }
+    }
+
+    public class PrizeSelectorMock
+    {
+        private readonly int doorNumberThatHoldsPrize;
+
+        public PrizeSelectorMock(int doorNumberThatHoldsPrize)
+        {
+            this.doorNumberThatHoldsPrize = doorNumberThatHoldsPrize;
+        }
+
+        public int ChooseDoor()
+        {
+            return this.doorNumberThatHoldsPrize;
         }
     }
 
     public class MontyHall
     {
-        public bool Door1 { get; private set; }
-        public bool Door2 { get; private set; }
-        public bool Door3 { get; private set; }
+        private readonly PrizeSelectorMock prizeSelector;
 
-        public IEnumerable<bool> Doors()
+        public MontyHall()
+        {
+            
+        }
+
+        public MontyHall(PrizeSelectorMock prizeSelector)
+        {
+            this.prizeSelector = prizeSelector;
+        }
+
+        public Door Door1 { get; private set; } = new Door(1, false);
+        public Door Door2 { get; private set; } = new Door(2, false);
+        public Door Door3 { get; private set; } = new Door(3, false);
+
+        public IEnumerable<Door> Doors()
         {
             yield return Door1;
             yield return Door2;
@@ -39,7 +79,24 @@ namespace Kata.MontyHall
 
         public void DefineWinner()
         {
-            Door1 = true;
+            Door1 = new Door(1, true);
         }
+
+        public Door RevealDoorWithNoPrize()
+        {
+            return Door2;
+        }
+    }
+
+    public class Door
+    {
+        public Door(int number, bool containsPrize)
+        {
+            Number = number;
+            ContainsPrize = containsPrize;
+        }
+
+        public int Number { get; }
+        public bool ContainsPrize { get; }
     }
 }
