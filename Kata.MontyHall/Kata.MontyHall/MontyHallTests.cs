@@ -21,7 +21,7 @@ namespace Kata.MontyHall
             var prizeSelector = new PrizeSelectorFake(doorNumberThatHoldsPrize: doorNumberThatHoldsPrize);
             var montyHall = new MontyHall(prizeSelector);
 
-            montyHall.DefineWinner();
+            montyHall.DefineWinningDoor();
 
             Assert.That(montyHall.WinningDoor.ContainsPrize, Is.EqualTo(true));
             Assert.That(montyHall.WinningDoor.Number, Is.EqualTo(doorNumberThatHoldsPrize));
@@ -34,7 +34,7 @@ namespace Kata.MontyHall
             var prizeSelector = new PrizeSelectorFake(doorNumberThatHoldsPrize: doorNumberThatHoldsPrize);
             var montyHall = new MontyHall(prizeSelector);
 
-            montyHall.DefineWinner();
+            montyHall.DefineWinningDoor();
             var door = montyHall.RevealDoorWithNoPrize();
 
             Assert.That(door.Number, Is.EqualTo(2));
@@ -88,7 +88,7 @@ namespace Kata.MontyHall
             yield return Door3;
         }
 
-        public void DefineWinner()
+        public void DefineWinningDoor()
         {
             WinningDoor = new Door(prizeSelector.ChooseDoor(), true);
         }
